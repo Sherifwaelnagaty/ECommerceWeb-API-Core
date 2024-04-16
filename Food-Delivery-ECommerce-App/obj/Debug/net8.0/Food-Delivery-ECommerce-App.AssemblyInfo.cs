@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Food-Delivery-ECommerce-App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbc6b54a44fa7b70bd175ba5ffd1ac1b0e6abf4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Food-Delivery-ECommerce-App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Food-Delivery-ECommerce-App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
