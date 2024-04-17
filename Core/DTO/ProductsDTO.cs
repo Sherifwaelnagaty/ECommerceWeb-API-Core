@@ -9,17 +9,17 @@ namespace Core.DTO
 {
     public class ProductsDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Category { get; set; }
-        public string Brand { get; set; }
-        public string Colors { get; set; }
-        public Sizes Sizes { get; set; }
-        public string Price { get; set; }
-        public string Images { get; set; }
-        public string Reviews { get; set; }
-        public string Quantity { get; set; }
+        public int Id;
+        public string Name;
+        public string Description;
+        public string Category;
+        public string Brand;
+        public string Colors;
+        public Sizes Sizes;
+        public string Price;
+        public string Images;
+        public string Reviews;
+        public string Quantity;
     }
 
 }
