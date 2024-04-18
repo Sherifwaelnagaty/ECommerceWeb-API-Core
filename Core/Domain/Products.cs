@@ -38,6 +38,6 @@ namespace Core.Domain
         public string Reviews { get; set; }
 
         [Required(ErrorMessage = "Brand is required.")]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
     }
 }

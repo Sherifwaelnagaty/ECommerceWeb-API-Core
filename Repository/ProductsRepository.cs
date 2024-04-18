@@ -21,7 +21,40 @@ namespace Repository
 
         public IActionResult GetAllProducts(int Page, int PageSize, Func<ProductsDTO, bool> criteria = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<ProductsDTO> ProductsInfo = _context.Set<Products>().Select(product => new ProductsDTO
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    Quantity = product.Quantity,
+                    Sizes = product.Sizes,
+                    Description = product.Description,
+                    Category = product.Category,
+                    Colors = product.Colors,
+                    Brand = product.Brand,
+                    Reviews = product.Reviews
+                });
+                if (criteria != null)
+                {
+                    ProductsInfo = ProductsInfo.Where(criteria);
+                }
+
+                if (Page != 0)
+                    ProductsInfo = ProductsInfo.Skip((Page - 1) * PageSize);
+
+                if (PageSize != 0)
+                    ProductsInfo = ProductsInfo.Take(PageSize);
+
+                return new OkObjectResult(ProductsInfo.ToList());
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public IActionResult GetProductById(int ProductId)
