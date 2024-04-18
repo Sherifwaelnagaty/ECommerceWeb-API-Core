@@ -17,5 +17,6 @@ namespace Core
                                                 Func<ProductsDTO, bool> criteria = null);
         IActionResult GetProductById(int ProductId);
         IActionResult GetProductByName(string Name);
+        bool IsExist(string id);
     }
 }

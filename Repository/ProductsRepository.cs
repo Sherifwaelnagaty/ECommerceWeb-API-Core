@@ -12,38 +12,29 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ProductsRepository : IProductsRepository, BaseRepository<Products>
+    public class ProductsRepository : BaseRepository<Products>,IProductsRepository 
     {
-        public Task<IActionResult> Add(Products entity)
+        public ProductsRepository(ApplicationDbContext context) : base(context)
         {
-            throw new NotImplementedException();
+
         }
 
-        public IActionResult Delete(Products entity)
-        {
-            throw new NotImplementedException();
-        }
         public IActionResult GetAllProducts(int Page, int PageSize, Func<ProductsDTO, bool> criteria = null)
         {
             throw new NotImplementedException();
         }
-        public Products GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+
         public IActionResult GetProductById(int ProductId)
         {
             throw new NotImplementedException();
         }
+
         public IActionResult GetProductByName(string Name)
         {
             throw new NotImplementedException();
         }
+
         public bool IsExist(string id)
-        {
-            throw new NotImplementedException();
-        }
-        public IActionResult Update(Products entity)
         {
             throw new NotImplementedException();
         }

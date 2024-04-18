@@ -16,29 +16,62 @@ namespace Repository
         {
             _context = context;
         }
-        public Task<IActionResult> Add(T entity)
+        public virtual async Task<IActionResult> Add(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Set<T>().Add(entity);
+                return new OkObjectResult(entity);
+            }
+            catch(Exception e)
+            {
+                return new ObjectResult($"An error occurred while adding: {e.Message}")
+                {
+                    StatusCode = 500,
+                };
+            }
         }
 
         public IActionResult Delete(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Set<T>().Remove(entity);
+                return new OkObjectResult("Deleted Successfully");
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while adding: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Find(id);
         }
 
         public bool IsExist(Expression<Func<T, bool>> criteria)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Any(criteria);
         }
 
         public IActionResult Update(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Update(entity);
+                return new OkObjectResult(entity);
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult($"An error occurred while Deleting \n: {e.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }
