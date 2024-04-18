@@ -16,6 +16,6 @@ namespace Core
         IActionResult GetAllProducts(int Page, int PageSize,
                                                 Func<ProductsDTO, bool> criteria = null);
         IActionResult GetProductById(int ProductId);
-        bool IsExist(string id);
+        IActionResult GetProductByName(string Name);
     }
 }
