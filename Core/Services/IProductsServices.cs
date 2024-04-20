@@ -15,8 +15,7 @@ namespace Core
         Task<IActionResult> AddProduct(Products product);
         IActionResult UpdateProduct(Products product);
         IActionResult DeleteProduct(int Id);
-        IActionResult GetAllProducts(int Page, int PageSize,
-                                                Func<ProductsDTO, bool> criteria = null);
+        IActionResult GetAllProducts(int Page, int PageSize, string search);
         IActionResult GetProductById(int ProductId);
         IActionResult GetProductByName(string Name);
     }
