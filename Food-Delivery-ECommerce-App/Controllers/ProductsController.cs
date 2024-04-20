@@ -1,13 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace Controllers
 {
-    public class ProductsController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductsController : ControllerBase
     {
-        
+        private readonly ProductsServices _services;
+        public ProductsController(ProductsServices services)
+        {
+            _services = services;
+        }
+        [HttpGet("")]
+        public IActionResult GetAllProducts(int page, int pageSize, string search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return _services.GetAllProducts(page, pageSize, search);
+        }
+
     }
 }
