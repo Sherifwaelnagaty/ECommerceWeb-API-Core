@@ -59,17 +59,44 @@ namespace Repository
 
         public IActionResult GetProductById(int ProductId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var product = _context.Products.Where(x => x.Id == ProductId).FirstOrDefault();
+                return new ObjectResult(product);
+
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during Getting product Info \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public IActionResult GetProductByName(string Name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var product = _context.Products.Where(x => x.Name == Name).FirstOrDefault();
+                return new ObjectResult(product);
+
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during Getting product Info \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
-        public bool IsExist(string id)
+        public bool IsExist(int id)
         {
-            throw new NotImplementedException();
+            return _context.Products.Any(x => x.Id == id);
+
         }
     }
 }
