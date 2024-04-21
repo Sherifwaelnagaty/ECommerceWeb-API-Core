@@ -51,5 +51,30 @@ namespace Controllers
             return await _services.AddProduct(products);
                
         }
+        [HttpDelete("Product")]
+        public IActionResult DeleteProduct([FromForm] int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    ModelState.AddModelError("id", "id Is Required");
+                }
+                else if (id < 0)
+                {
+                    ModelState.AddModelError("id", "id Is Invalid. Id must be greater than 0");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                };
+                return _services.DeleteProduct(id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while Deleting the Doctor:\n" +
+                    $"  {ex.Message} \n  {ex.Message}");
+            }
+        }
     }
 }
