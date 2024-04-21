@@ -2,10 +2,12 @@
 using Core;
 using Core.Domain;
 using Core.DTO;
+using Core.Enums;
 using Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
@@ -17,15 +19,36 @@ namespace Services
     public class ProductsServices : IProductsServices
     {
         protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
+
 
         public ProductsServices(IUnitOfWork UnitOfWork, IMapper mapper)
         {
             _unitOfWork = UnitOfWork;
+            _mapper = mapper;
 
         }
-        public Task<IActionResult> AddProduct(Products product)
+        public async Task<IActionResult> AddProduct(ProductsDTO product)
         {
-            throw new NotImplementedException();
+            Products products = _mapper.Map<Products>(product);
+            try
+            {
+                var result = await _unitOfWork.Products.Add(products);
+                if (result is OkResult)
+                {
+                    return new OkObjectResult(products);
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Products.Delete(products);
+                return new BadRequestObjectResult($"There is a problem during adding user \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult DeleteProduct(int Id)
@@ -125,6 +148,7 @@ namespace Services
                 {
                     return new OkObjectResult(product);
                 }
+                return new OkObjectResult(product);
             }
             catch (Exception ex)
             {
