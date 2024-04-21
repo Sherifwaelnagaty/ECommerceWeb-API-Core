@@ -4,6 +4,7 @@ using Core.Domain;
 using Core.DTO;
 using Core.Enums;
 using Core.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -129,14 +130,49 @@ namespace Services
             // For simplicity, return the first image in the list
             return images[0];
         }
-        public IActionResult GetProductById(int ProductId)
+        public IActionResult GetProductById(int productId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Products product = _unitOfWork.Products.GetById(productId);
+                if (product == null)
+                {
+                    return new NotFoundObjectResult($"Product with ID {productId} not found.");
+                }
+
+                return new OkObjectResult(product);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Doctors info \n: {ex.Message}" +
+                $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
+
 
         public IActionResult GetProductByName(string Name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Products product = _unitOfWork.Products.GetByName(Name);
+                if (product == null)
+                {
+                    return new NotFoundObjectResult($"Product with Name {Name} not found.");
+                }
+
+                return new OkObjectResult(product);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Product info \n: {ex.Message}" +
+                $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public async Task<IActionResult> UpdateProduct(int id, ProductsDTO productsDTO)

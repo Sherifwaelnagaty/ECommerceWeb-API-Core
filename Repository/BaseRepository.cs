@@ -48,7 +48,10 @@ namespace Repository
         {
             return _context.Set<T>().Find(id);
         }
-
+        public T GetByName(string name)
+        {
+            return _context.Set<T>().Find(name);
+        }
         public bool IsExist(Expression<Func<T, bool>> criteria)
         {
             return _context.Set<T>().Any(criteria);

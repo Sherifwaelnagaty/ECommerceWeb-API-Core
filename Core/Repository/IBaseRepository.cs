@@ -12,6 +12,7 @@ namespace Core.Repository
     {
         Task<IActionResult> Add(T entity);
         T GetById(int id);
+        T GetByName(string name);
         IActionResult Update(T entity);
         IActionResult Delete(T entity);
         bool IsExist(Expression<Func<T, bool>> criteria);

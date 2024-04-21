@@ -15,8 +15,6 @@ namespace Core
     {
         IActionResult GetAllProducts(int Page, int PageSize,
                                                 Func<ProductsDTO, bool> criteria = null);
-        Task<IActionResult> GetProductById(int ProductId);
-        IActionResult GetProductByName(string Name);
         bool IsExist(int id);
     }
 }
