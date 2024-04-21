@@ -46,14 +46,29 @@ namespace Services
             catch (Exception ex)
             {
                 _unitOfWork.Products.Delete(products);
-                return new BadRequestObjectResult($"There is a problem during adding user \n" +
+                return new BadRequestObjectResult($"There is a problem during adding a new product \n" +
                     $"{ex.Message}\n {ex.InnerException?.Message}");
             }
         }
 
         public IActionResult DeleteProduct(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Products product = _unitOfWork.Products.GetById(Id);
+                if (product == null)
+                {
+                    return new NotFoundObjectResult($"Id {Id} is not found");
+                }
+                _unitOfWork.Products.Delete(product);
+                _unitOfWork.Complete();
+                return new OkObjectResult("Deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult($"There is a problem during adding a new product \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult GetAllProducts(int Page, int PageSize, string search)

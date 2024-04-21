@@ -12,7 +12,7 @@ namespace Core
     public interface IProductsServices
     {
 
-        Task<IActionResult> AddProduct(Products product);
+        Task<IActionResult> AddProduct(ProductsDTO product);
         Task<IActionResult> UpdateProduct(int id, ProductsDTO productsDTO);
         IActionResult DeleteProduct(int Id);
         IActionResult GetAllProducts(int Page, int PageSize, string search);
