@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -100,9 +101,40 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public IActionResult UpdateProduct(Products product)
+        public async Task<IActionResult> UpdateProduct(int id, ProductsDTO productsDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Retrieve the product by id
+                Products product = _unitOfWork.Products.GetById(id);
+                if (product == null)
+                {
+                    return new NotFoundObjectResult($"There is no Product with id: {id}.");
+                }
+
+                // Update product properties based on productsDTO
+                product.Brand = productsDTO.Brand;
+                product.Price = productsDTO.Price;
+                product.Category = productsDTO.Category;
+                product.Description = productsDTO.Description;
+
+                var result = _unitOfWork.Products.Update(product);
+                _unitOfWork.Complete();
+
+                if (result is not OkResult)
+                {
+                    return new OkObjectResult(product);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return error message in case of exception
+                return new ObjectResult($"An error occurred while Adding Doctor \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }

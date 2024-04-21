@@ -13,7 +13,7 @@ namespace Core
     {
 
         Task<IActionResult> AddProduct(Products product);
-        IActionResult UpdateProduct(Products product);
+        Task<IActionResult> UpdateProduct(int id, ProductsDTO productsDTO);
         IActionResult DeleteProduct(int Id);
         IActionResult GetAllProducts(int Page, int PageSize, string search);
         IActionResult GetProductById(int ProductId);
