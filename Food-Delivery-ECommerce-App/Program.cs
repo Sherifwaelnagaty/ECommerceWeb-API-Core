@@ -1,10 +1,19 @@
+using DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+using System;
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// add connection string 
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Services.AddDbContext<ApplicationDbContext>(optionBuilder => {
+    optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceDB"));
+});
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+
+DependencyConfig.ConfigureDependencies(builder.Services);
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -18,6 +27,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// to read cookies
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
