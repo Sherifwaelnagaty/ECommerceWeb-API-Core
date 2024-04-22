@@ -76,5 +76,26 @@ namespace Controllers
                     $"  {ex.Message} \n  {ex.Message}");
             }
         }
+        [HttpPut]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateProduct([FromForm] int id, [FromForm] ProductsDTO productDTO)
+        {
+            if (productDTO.Images == null || productDTO.Images.Count == 0)
+            {
+                ModelState.AddModelError("productDTO.Image", "Image Is Required");
+            }
+
+            if (id == 0)
+            {
+                ModelState.AddModelError("Id", "Id Is Required");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            };
+
+            return await _services.UpdateProduct(id, productDTO);
+        }
     }
 }
