@@ -2,18 +2,11 @@
 using Core;
 using Core.Domain;
 using Core.DTO;
-using Core.Enums;
 using Core.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Services
 {

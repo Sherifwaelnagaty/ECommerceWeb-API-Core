@@ -1,12 +1,6 @@
-﻿using System.Globalization;
-using AutoMapper;
-using Core.Domain;
+﻿using AutoMapper;
+using Core;
 using Core.Repository;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using Services;
@@ -21,13 +15,13 @@ namespace DependencyInjection
             Services.AddEndpointsApiExplorer();
 
 
-            Services.AddIdentity<ApplicationUser, IdentityRole>(
-                options => options.Password.RequireDigit = true
-                ).
-                AddEntityFrameworkStores<ApplicationDbContext>();
+            //Services.AddIdentity<ApplicationUser, IdentityRole>(
+                //options => options.Password.RequireDigit = true
+                //).
+               //AddEntityFrameworkStores<ApplicationDbContext>();
 
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
-         
+            Services.AddTransient<IProductsServices,ProductsServices>();
 
             // inject auto mapper
             var mapperConfig = new MapperConfiguration(cfg =>
