@@ -6,17 +6,6 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-
-    public enum Days
-    {
-        Saturday,
-        Sunday,
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-    }
     public enum Gender { Male, Female, }
     public enum DiscountType
     {
@@ -25,8 +14,7 @@ namespace Core.Enums
     }
     public enum UserRole
     {
-        Doctor,
-        Patient,
+        User,
         Admin
     }
     public enum BookingState

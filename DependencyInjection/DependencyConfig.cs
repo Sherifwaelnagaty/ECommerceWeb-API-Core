@@ -10,8 +10,6 @@ namespace DependencyInjection
     {
         public static IServiceCollection ConfigureDependencies(IServiceCollection Services)
         {
-            Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             Services.AddEndpointsApiExplorer();
 
 
@@ -33,21 +31,6 @@ namespace DependencyInjection
 
             // patch
             Services.AddControllers().AddNewtonsoftJson();
-
-            // Localization
-            //Services.AddLocalization(options => options.ResourcesPath = "Resources");
-            //Services.Configure<RequestLocalizationOptions>(options =>
-            //{
-            //    var supportedCultures = new List<CultureInfo>
-            //    {
-            //        new CultureInfo("en"),
-            //        new CultureInfo("ar")
-            //    };
-
-            //    options.DefaultRequestCulture = new RequestCulture("en");
-            //    options.SupportedCultures = supportedCultures;
-            //    options.SupportedUICultures = supportedCultures;
-            //});
 
             return Services;
         }
