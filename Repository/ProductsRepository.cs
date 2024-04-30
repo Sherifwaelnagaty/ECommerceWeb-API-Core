@@ -92,11 +92,5 @@ namespace Repository
                 };
             }
         }
-
-        public bool IsExist(int id)
-        {
-            return _context.Products.Any(x => x.Id == id);
-
-        }
     }
 }

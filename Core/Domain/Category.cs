@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Core.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Images { get; set; }
+        public List<Image> Images { get; set; }
 
         [ForeignKey("FK_Color_ApplicationUser_UserId")]
         public int UserId { get; set; }

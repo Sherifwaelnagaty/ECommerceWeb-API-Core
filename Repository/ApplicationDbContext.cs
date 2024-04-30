@@ -18,6 +18,9 @@ namespace Repository
             
         }
         public DbSet<Products> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Color> Colors { get; set; }
         
     }
 }

@@ -9,6 +9,9 @@ namespace Core.Repository
     public interface IUnitOfWork : IDisposable
     {
         public IProductsRepository Products { get; }
+        public ICategoryRepository Category { get; }    
+        public IBrandRepository Brand { get; }
+        public IColorRepository color { get; }
         int Complete();
     }
 }

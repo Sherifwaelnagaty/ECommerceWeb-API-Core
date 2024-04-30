@@ -15,6 +15,5 @@ namespace Core
     {
         IActionResult GetAllProducts(int Page, int PageSize,
                                                 Func<ProductsDTO, bool> criteria = null);
-        bool IsExist(int id);
     }
 }
