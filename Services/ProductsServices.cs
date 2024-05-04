@@ -76,21 +76,21 @@ namespace Services
                                 d.Description.Contains(search) || d.Category.Contains(search) ||
                                 d.Name.Contains(search)); 
 
-                // get doctors
-                var gettingDoctorsResult = _unitOfWork.Products.GetAllProducts(Page, PageSize, criteria);
-                if (gettingDoctorsResult is not OkObjectResult doctorsResult)
+                // get Products
+                var gettingProductsResult = _unitOfWork.Products.GetAllProducts(Page, PageSize, criteria);
+                if (gettingProductsResult is not OkObjectResult ProductsResult)
                 {
-                    return gettingDoctorsResult;
+                    return gettingProductsResult;
                 }
-                List<ProductsDTO> doctorsInfoList = doctorsResult.Value as List<ProductsDTO>;
+                List<ProductsDTO> ProductsInfoList = ProductsResult.Value as List<ProductsDTO>;
 
-                if (doctorsInfoList == null || doctorsInfoList.Count == 0)
+                if (ProductsInfoList == null || ProductsInfoList.Count == 0)
                 {
                     return new NotFoundObjectResult("There is no doctor");
                 }
 
                 // Load doctor images
-                var doctorsInfo = doctorsInfoList.Select(d => new
+                var ProductsInfo = ProductsInfoList.Select(d => new
                 {
                     Image = GetImage(d.Images),
                     d.Name,
@@ -102,11 +102,11 @@ namespace Services
                     d.Colors,
                 }).ToList();
 
-                return new OkObjectResult(doctorsInfo);
+                return new OkObjectResult(ProductsInfo);
             }
             catch (Exception ex)
             {
-                return new ObjectResult($"An error occurred while Getting Doctors info \n: {ex.Message}" +
+                return new ObjectResult($"An error occurred while Getting Products info \n: {ex.Message}" +
                     $"\n {ex.InnerException?.Message}")
                 {
                     StatusCode = 500
@@ -137,7 +137,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                return new ObjectResult($"An error occurred while Getting Doctors info \n: {ex.Message}" +
+                return new ObjectResult($"An error occurred while Getting Products info \n: {ex.Message}" +
                 $"\n {ex.InnerException?.Message}")
                 {
                     StatusCode = 500

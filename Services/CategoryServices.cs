@@ -67,9 +67,39 @@ namespace Services
             }
         }
 
-        public IActionResult GetAllCategories(int Page, int PageSize, string search)
+        public IActionResult GetAllCategories(int Page, int PageSize)
         {
-            throw new NotImplementedException();
+            try
+            { 
+                // get Categories
+                var gettingCategoriesResult = _unitOfWork.Category.GetAllCategories(Page, PageSize);
+                if (gettingCategoriesResult is not OkObjectResult CategoriesResult)
+                {
+                    return gettingCategoriesResult;
+                }
+                List<ProductsDTO> CategoriesInfoList = CategoriesResult.Value as List<ProductsDTO>;
+
+                if (CategoriesInfoList == null || CategoriesInfoList.Count == 0)
+                {
+                    return new NotFoundObjectResult("There is no doctor");
+                }
+
+                // Load doctor images
+                var CategoriesInfo = CategoriesInfoList.Select(d => new
+                {
+                    d.Name,
+                }).ToList();
+
+                return new OkObjectResult(CategoriesInfo);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Categories info \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public async Task<IActionResult> UpdateCategory(int id, CategoryDTO CategoryDTO)
