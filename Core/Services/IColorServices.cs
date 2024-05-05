@@ -13,6 +13,6 @@ namespace Core.Services
         Task<IActionResult> AddColor(ColorDTO Color);
         Task<IActionResult> UpdateColor(int id, ColorDTO ColorsDTO);
         IActionResult DeleteColor(int Id);
-        IActionResult GetAllColors(int Page, int PageSize, string search);
+        IActionResult GetAllColors(int Page, int PageSize);
     }
 }

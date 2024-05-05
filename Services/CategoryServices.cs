@@ -106,14 +106,14 @@ namespace Services
         {
             try
             {
-                // Retrieve the product by id
+                // Retrieve the category by id
                 Category category = _unitOfWork.Category.GetById(id);
                 if (category == null)
                 {
-                    return new NotFoundObjectResult($"There is no Product with id: {id}.");
+                    return new NotFoundObjectResult($"There is no category with id: {id}.");
                 }
 
-                // Update product properties based on productsDTO
+                // Update category properties based on categorysDTO
                 category.Name = CategoryDTO.Name;
 
                 var result = _unitOfWork.Category.Update(category);

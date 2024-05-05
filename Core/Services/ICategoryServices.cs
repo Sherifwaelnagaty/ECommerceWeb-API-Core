@@ -13,6 +13,6 @@ namespace Core.Services
         Task<IActionResult> AddCategory(CategoryDTO Category);
         Task<IActionResult> UpdateCategory(int id, CategoryDTO CategoryDTO);
         IActionResult DeleteCategory(int Id);
-        IActionResult GetAllCategories(int Page, int PageSize, string search);
+        IActionResult GetAllCategories(int Page, int PageSize);
     }
 }
