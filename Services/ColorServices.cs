@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Domain;
 using Core.DTO;
 using Core.Repository;
 using Core.Services;
@@ -23,9 +24,27 @@ namespace Services
             _mapper = mapper;
 
         }
-        public Task<IActionResult> AddColor(ColorDTO Color)
+        public async Task<IActionResult> AddColor(ColorDTO Color)
         {
-            throw new NotImplementedException();
+            Color colors = _mapper.Map<Color>(Color);
+            try
+            {
+                var result = await _unitOfWork.Color.Add(colors);
+                if (result is OkResult)
+                {
+                    return new OkObjectResult(colors);
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Color.Delete(colors);
+                return new BadRequestObjectResult($"There is a problem during adding a new color \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult DeleteColor(int Id)

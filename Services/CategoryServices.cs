@@ -42,7 +42,7 @@ namespace Services
             catch (Exception ex)
             {
                 _unitOfWork.Category.Delete(categories);
-                return new BadRequestObjectResult($"There is a problem during adding a new product \n" +
+                return new BadRequestObjectResult($"There is a problem during adding a new category \n" +
                     $"{ex.Message}\n {ex.InnerException?.Message}");
             }
         }

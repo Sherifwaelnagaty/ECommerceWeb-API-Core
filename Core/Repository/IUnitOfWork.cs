@@ -11,7 +11,7 @@ namespace Core.Repository
         public IProductsRepository Products { get; }
         public ICategoryRepository Category { get; }    
         public IBrandRepository Brand { get; }
-        public IColorRepository color { get; }
+        public IColorRepository Color { get; }
         int Complete();
     }
 }
