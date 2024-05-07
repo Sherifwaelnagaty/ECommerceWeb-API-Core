@@ -49,12 +49,57 @@ namespace Services
 
         public IActionResult DeleteColor(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Color color = _unitOfWork.Color.GetById(Id);
+                if (color == null)
+                {
+                    return new NotFoundObjectResult($"Id {Id} is not found");
+                }
+                _unitOfWork.Color.Delete(color);
+                _unitOfWork.Complete();
+                return new OkObjectResult("Deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult($"There is a problem during adding a new color \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult GetAllColors(int Page, int PageSize)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                // get Color
+                var gettingColorResult = _unitOfWork.Color.GetAllColors(Page, PageSize);
+                if (gettingColorResult is not OkObjectResult ColorResult)
+                {
+                    return gettingColorResult;
+                }
+                List<ColorDTO> ColorInfoList = ColorResult.Value as List<ColorDTO>;
+
+                if (ColorInfoList == null || ColorInfoList.Count == 0)
+                {
+                    return new NotFoundObjectResult("There is no doctor");
+                }
+
+                var ColorInfo = ColorInfoList.Select(d => new
+                {
+                    d.Name,
+                }).ToList();
+
+                return new OkObjectResult(ColorInfo);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Color info \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public Task<IActionResult> UpdateColor(int id, ColorDTO ColorsDTO)

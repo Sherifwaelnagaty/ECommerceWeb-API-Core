@@ -62,7 +62,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                return new BadRequestObjectResult($"There is a problem during adding a new product \n" +
+                return new BadRequestObjectResult($"There is a problem during adding a new color \n" +
                     $"{ex.Message}\n {ex.InnerException?.Message}");
             }
         }
