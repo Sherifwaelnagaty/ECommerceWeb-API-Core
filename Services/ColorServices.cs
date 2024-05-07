@@ -102,9 +102,38 @@ namespace Services
             }
         }
 
-        public Task<IActionResult> UpdateColor(int id, ColorDTO ColorsDTO)
+        public async Task<IActionResult> UpdateColor(int id, ColorDTO ColorsDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Retrieve the Color by id
+                Color colors = _unitOfWork.Color.GetById(id);
+                if (colors == null)
+                {
+                    return new NotFoundObjectResult($"There is no Color with id: {id}.");
+                }
+
+                // Update Color properties based on ColorsDTO
+                colors.Name = ColorsDTO.Name;
+
+                var result = _unitOfWork.Color.Update(colors);
+                _unitOfWork.Complete();
+
+                if (result is not OkResult)
+                {
+                    return new OkObjectResult(colors);
+                }
+                return new OkObjectResult(colors);
+            }
+            catch (Exception ex)
+            {
+                // Return error message in case of exception
+                return new ObjectResult($"An error occurred while Updating color \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }
