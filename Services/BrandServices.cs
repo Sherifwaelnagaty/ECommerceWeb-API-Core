@@ -24,7 +24,7 @@ namespace Services
             _mapper = mapper;
 
         }
-        public async Task<IActionResult> AddBrand(BrandDTO brand)
+        public async Task<IActionResult> AddBrand(Brand brand)
         {
             Brand brands = _mapper.Map<Brand>(brand);
             try
@@ -102,7 +102,7 @@ namespace Services
             }
         }
 
-        public async Task<IActionResult> UpdateBrand(int id, BrandDTO brandDTO)
+        public async Task<IActionResult> UpdateBrand(int id, Brand brand)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace Services
                 }
 
                 // Update Brand properties based on BrandsDTO
-                Brand.Name = brandDTO.Name;
+                Brand.Name = brand.Name;
 
                 var result = _unitOfWork.Brand.Update(Brand);
                 _unitOfWork.Complete();

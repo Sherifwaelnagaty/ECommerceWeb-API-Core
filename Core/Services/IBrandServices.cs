@@ -1,4 +1,5 @@
-﻿using Core.DTO;
+﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Core.Services
 {
     public interface IBrandServices
     {
-        Task<IActionResult> AddBrand(BrandDTO brand);
-        Task<IActionResult> UpdateBrand(int id, BrandDTO brandDTO);
+        Task<IActionResult> AddBrand(Brand brand);
+        Task<IActionResult> UpdateBrand(int id, Brand brandDTO);
         IActionResult DeleteBrand(int Id);
         IActionResult GetAllBrands(int Page, int PageSize);
     }

@@ -1,4 +1,5 @@
-﻿using Core.DTO;
+﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Core.Services
 {
     public interface ICategoryServices
     {
-        Task<IActionResult> AddCategory(CategoryDTO Category);
-        Task<IActionResult> UpdateCategory(int id, CategoryDTO CategoryDTO);
+        Task<IActionResult> AddCategory(Category category);
+        Task<IActionResult> UpdateCategory(Category category);
         IActionResult DeleteCategory(int Id);
         IActionResult GetAllCategories(int Page, int PageSize);
     }
