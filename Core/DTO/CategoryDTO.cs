@@ -9,6 +9,7 @@ namespace Core.DTO
 {
     public class CategoryDTO
     {
+        public int Id;
         public string Name;
         public List<Image> Images;
     }

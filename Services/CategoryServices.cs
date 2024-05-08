@@ -24,15 +24,14 @@ namespace Services
             _mapper = mapper;
 
         }
-        public async Task<IActionResult> AddCategory(CategoryDTO category)
+        public async Task<IActionResult> AddCategory(Category category)
         {
-            Category categories = _mapper.Map <Category>(category);
             try
             {
-                var result = await _unitOfWork.Category.Add(categories);
+                var result = await _unitOfWork.Category.Add(category);
                 if (result is OkResult)
                 {
-                    return new OkObjectResult(categories);
+                    return new OkObjectResult(category);
                 }
                 else
                 {
@@ -41,7 +40,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                _unitOfWork.Category.Delete(categories);
+                _unitOfWork.Category.Delete(category);
                 return new BadRequestObjectResult($"There is a problem during adding a new category \n" +
                     $"{ex.Message}\n {ex.InnerException?.Message}");
             }
@@ -102,38 +101,26 @@ namespace Services
             }
         }
 
-        public async Task<IActionResult> UpdateCategory(int id, CategoryDTO CategoryDTO)
+        public async Task<IActionResult> UpdateCategory(Category category)
         {
             try
             {
-                // Retrieve the category by id
-                Category category = _unitOfWork.Category.GetById(id);
-                if (category == null)
+                bool IsCouponExist = _unitOfWork.Category.IsExist(c => c.Id == category.Id);
+                if (!IsCouponExist)
                 {
-                    return new NotFoundObjectResult($"There is no category with id: {id}.");
+                    return new NotFoundObjectResult($"Id {category.Id} is not found");
                 }
-
-                // Update category properties based on categorysDTO
-                category.Name = CategoryDTO.Name;
-
                 var result = _unitOfWork.Category.Update(category);
-                _unitOfWork.Complete();
 
-                if (result is not OkResult)
-                {
-                    return new OkObjectResult(category);
-                }
-                return new OkObjectResult(category);
+                _unitOfWork.Complete();
+                return result;
             }
             catch (Exception ex)
             {
-                // Return error message in case of exception
-                return new ObjectResult($"An error occurred while Adding Doctor \n: {ex.Message}" +
-                    $"\n {ex.InnerException?.Message}")
-                {
-                    StatusCode = 500
-                };
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
             }
         }
+    }
     }
 }
