@@ -101,7 +101,7 @@ namespace Services
             }
         }
 
-        public async Task<IActionResult> UpdateCategory(Category category)
+        public IActionResult UpdateCategory(Category category)
         {
             try
             {

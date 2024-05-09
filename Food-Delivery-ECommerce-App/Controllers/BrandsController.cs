@@ -36,10 +36,10 @@ namespace Food_Delivery_ECommerce_App.Controllers
             {
                 return BadRequest(ModelState);
             };
-            return await _brandsServices.UpdateBrand(id,brand);
+            return _brandsServices.UpdateBrand(id,brand);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBrand([FromForm] int id)
+        public IActionResult DeleteBrand([FromForm] int id)
         {
             if (id <= 0)
             {

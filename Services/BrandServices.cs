@@ -102,37 +102,24 @@ namespace Services
             }
         }
 
-        public async Task<IActionResult> UpdateBrand(int id, Brand brand)
+        public IActionResult UpdateBrand(Brand brand)
         {
             try
             {
-                // Retrieve the Brand by id
-                Brand Brand = _unitOfWork.Brand.GetById(id);
-                if (Brand == null)
+                bool IsCouponExist = _unitOfWork.Brand.IsExist(c => c.Id == brand.Id);
+                if (!IsCouponExist)
                 {
-                    return new NotFoundObjectResult($"There is no Brand with id: {id}.");
+                    return new NotFoundObjectResult($"Id {brand.Id} is not found");
                 }
+                var result = _unitOfWork.Brand.Update(brand);
 
-                // Update Brand properties based on BrandsDTO
-                Brand.Name = brand.Name;
-
-                var result = _unitOfWork.Brand.Update(Brand);
                 _unitOfWork.Complete();
-
-                if (result is not OkResult)
-                {
-                    return new OkObjectResult(Brand);
-                }
-                return new OkObjectResult(Brand);
+                return result;
             }
             catch (Exception ex)
             {
-                // Return error message in case of exception
-                return new ObjectResult($"An error occurred while Adding Doctor \n: {ex.Message}" +
-                    $"\n {ex.InnerException?.Message}")
-                {
-                    StatusCode = 500
-                };
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
             }
         }
     }

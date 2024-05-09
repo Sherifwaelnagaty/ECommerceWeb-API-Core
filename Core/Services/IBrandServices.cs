@@ -12,7 +12,7 @@ namespace Core.Services
     public interface IBrandServices
     {
         Task<IActionResult> AddBrand(Brand brand);
-        Task<IActionResult> UpdateBrand(int id, Brand brandDTO);
+        IActionResult UpdateBrand(Brand brand);
         IActionResult DeleteBrand(int Id);
         IActionResult GetAllBrands(int Page, int PageSize);
     }

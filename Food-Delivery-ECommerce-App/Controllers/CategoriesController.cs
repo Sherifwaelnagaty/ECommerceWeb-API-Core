@@ -40,7 +40,7 @@ namespace Food_Delivery_ECommerce_App.Controllers
             {
                 return BadRequest(ModelState);
             };
-            return await _categoriesServices.UpdateCategory(category);
+            return _categoriesServices.UpdateCategory(category);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromForm] int id)

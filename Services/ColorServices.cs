@@ -24,7 +24,7 @@ namespace Services
             _mapper = mapper;
 
         }
-        public async Task<IActionResult> AddColor(ColorDTO Color)
+        public async Task<IActionResult> AddColor(Color Color)
         {
             Color colors = _mapper.Map<Color>(Color);
             try
@@ -102,38 +102,24 @@ namespace Services
             }
         }
 
-        public async Task<IActionResult> UpdateColor(int id, ColorDTO ColorsDTO)
+        public IActionResult UpdateColor(Color color)
         {
             try
             {
-                // Retrieve the Color by id
-                Color colors = _unitOfWork.Color.GetById(id);
-                if (colors == null)
+                bool IsCouponExist = _unitOfWork.Color.IsExist(c => c.Id == color.Id);
+                if (!IsCouponExist)
                 {
-                    return new NotFoundObjectResult($"There is no Color with id: {id}.");
+                    return new NotFoundObjectResult($"Id {color.Id} is not found");
                 }
+                var result = _unitOfWork.Color.Update(color);
 
-                // Update Color properties based on ColorsDTO
-                colors.Name = ColorsDTO.Name;
-
-                var result = _unitOfWork.Color.Update(colors);
                 _unitOfWork.Complete();
-
-                if (result is not OkResult)
-                {
-                    return new OkObjectResult(colors);
-                }
-                return new OkObjectResult(colors);
+                return result;
             }
             catch (Exception ex)
             {
-                // Return error message in case of exception
-                return new ObjectResult($"An error occurred while Updating color \n: {ex.Message}" +
-                    $"\n {ex.InnerException?.Message}")
-                {
-                    StatusCode = 500
-                };
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
             }
         }
-    }
 }
