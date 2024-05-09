@@ -22,7 +22,7 @@ namespace Food_Delivery_ECommerce_App.Controllers
             return await _colorsServices.AddColor(color);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBrand([FromForm] int id, [FromForm] Brand brand)
+        public async Task<IActionResult> UpdateBrand([FromForm] int id, [FromForm] Color color)
         {
             if (id == 0)
             {
@@ -36,7 +36,7 @@ namespace Food_Delivery_ECommerce_App.Controllers
             {
                 return BadRequest(ModelState);
             };
-            return await _brandsServices.UpdateBrand(id, brand);
+            return _colorsServices.UpdateColor(color);
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteBrand([FromForm] int id)
@@ -51,7 +51,7 @@ namespace Food_Delivery_ECommerce_App.Controllers
                 return BadRequest(ModelState);
             };
 
-            return _brandsServices.DeleteBrand(id);
+            return _colorsServices.DeleteColor(id);
         }
     }
 }

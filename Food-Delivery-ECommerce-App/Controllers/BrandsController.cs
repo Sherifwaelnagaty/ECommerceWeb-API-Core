@@ -22,7 +22,7 @@ namespace Food_Delivery_ECommerce_App.Controllers
             return await _brandsServices.AddBrand(brand);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBrand([FromForm] int id, [FromForm] Brand brand)
+        public Task<IActionResult> UpdateBrand([FromForm] int id, [FromForm] Brand brand)
         {
             if (id == 0)
             {
@@ -30,13 +30,13 @@ namespace Food_Delivery_ECommerce_App.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Task.FromResult<IActionResult>(BadRequest(ModelState));
             };
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Task.FromResult<IActionResult>(BadRequest(ModelState));
             };
-            return _brandsServices.UpdateBrand(id,brand);
+            return Task.FromResult(_brandsServices.UpdateBrand(brand));
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteBrand([FromForm] int id)

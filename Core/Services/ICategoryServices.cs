@@ -12,7 +12,7 @@ namespace Core.Services
     public interface ICategoryServices
     {
         Task<IActionResult> AddCategory(Category category);
-        Task<IActionResult> UpdateCategory(Category category);
+        IActionResult UpdateCategory(Category category);
         IActionResult DeleteCategory(int Id);
         IActionResult GetAllCategories(int Page, int PageSize);
     }

@@ -122,4 +122,5 @@ namespace Services
                 return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
             }
         }
+    }
 }
