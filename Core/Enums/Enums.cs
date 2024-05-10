@@ -32,5 +32,17 @@ namespace Core.Enums
         XL,
         XXL
     }
+    public enum PaymentMethod
+    {
+        Cash,
+        Visa
+    }
+    public enum OrderStatus
+    {
+        pending,
+        processing,
+        shipped,
+        delivered
+    }
 
 }

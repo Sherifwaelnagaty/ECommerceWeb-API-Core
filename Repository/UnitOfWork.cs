@@ -14,7 +14,7 @@ namespace Repository
         public IProductsRepository Products { get; private set; }
         public ICategoryRepository Category { get; private set; }
         public IBrandRepository Brand { get; private set; }
-        public IColorRepository color { get; private set; }
+        public IColorRepository Color { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
