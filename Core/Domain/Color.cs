@@ -11,10 +11,9 @@ namespace Core.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
         [ForeignKey("FK_Color_ApplicationUser_UserId")]
         public int UserId { get; set; }
-        
+        public ApplicationUser User { get; set; }
         [ForeignKey("FK_Color_Products_ProductId")]
         public int ProductId { get; set; }
     }

@@ -36,9 +36,12 @@ namespace Core.Domain
         [Required(ErrorMessage = "Price is required.")]
         public decimal Price { get; set; }
         public string Images { get; set; }
-        public string Reviews { get; set; }
 
         [Required(ErrorMessage = "Quantity is required.")]
         public int Quantity { get; set; }
+
+        [ForeignKey("FK_Products_Reviews_ReviewsId")]
+        public int ReviewsId { get; set; }
+        public Reviews Reviews { get; set; }
     }
 }
