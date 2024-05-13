@@ -9,9 +9,6 @@ namespace Core.Repository
 {
     public interface IReviewsRepository
     {
-        IActionResult GetAvgOrder();
-        IActionResult GetSalesSumCrtl();
-        IActionResult GetMinMaxOrder();
 
     }
 }

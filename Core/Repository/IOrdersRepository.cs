@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Core.Repository
 {
     public interface IOrdersRepository
     {
-
+        IActionResult GetAvgOrder();
+        IActionResult GetSalesSumCrtl();
+        IActionResult GetMinMaxOrder();
     }
 }
