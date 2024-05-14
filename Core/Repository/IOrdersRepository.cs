@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    public interface IOrdersRepository
+    public interface IOrdersRepository:IBaseRepository<Orders>
     {
         IActionResult GetAvgOrder();
         IActionResult GetSalesSumCrtl();
