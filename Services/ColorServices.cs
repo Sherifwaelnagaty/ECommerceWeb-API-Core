@@ -16,8 +16,6 @@ namespace Services
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
-
-
         public ColorServices(IUnitOfWork UnitOfWork, IMapper mapper)
         {
             _unitOfWork = UnitOfWork;

@@ -1,4 +1,5 @@
-﻿using Core.DTO;
+﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Services
     {
 
         Task<IActionResult> AddReview(ReviewsDTO Review);
-        Task<IActionResult> UpdateReview(int id, ReviewsDTO ReviewsDTO);
+        Task<IActionResult> UpdateReview(Reviews reviews);
         IActionResult DeleteReview(int Id);
     }
 }

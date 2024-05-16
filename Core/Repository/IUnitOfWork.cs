@@ -12,6 +12,8 @@ namespace Core.Repository
         public ICategoryRepository Category { get; }    
         public IBrandRepository Brand { get; }
         public IColorRepository Color { get; }
+        public IReviewsRepository Reviews { get; }
+        public IOrdersRepository Orders { get; }
         int Complete();
     }
 }
