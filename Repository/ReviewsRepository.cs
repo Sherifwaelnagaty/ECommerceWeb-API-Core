@@ -10,36 +10,11 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ReviewsRepository : IReviewsRepository
+    public class ReviewsRepository : BaseRepository<Reviews>, IReviewsRepository
     {
-        public Task<IActionResult> Add(Reviews entity)
+        public ReviewsRepository(ApplicationDbContext context) : base(context)
         {
-            throw new NotImplementedException();
-        }
 
-        public IActionResult Delete(Reviews entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Reviews GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Reviews GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsExist(Expression<Func<Reviews, bool>> criteria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IActionResult Update(Reviews entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

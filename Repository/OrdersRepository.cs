@@ -10,29 +10,14 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class OrdersRepository : IOrdersRepository
+    public class OrdersRepository : BaseRepository<Orders>, IOrdersRepository
     {
-        public Task<IActionResult> Add(Orders entity)
+        public OrdersRepository(ApplicationDbContext context) : base(context)
         {
-            throw new NotImplementedException();
-        }
 
-        public IActionResult Delete(Orders entity)
-        {
-            throw new NotImplementedException();
         }
 
         public IActionResult GetAvgOrder()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Orders GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Orders GetByName(string name)
         {
             throw new NotImplementedException();
         }
@@ -43,16 +28,6 @@ namespace Repository
         }
 
         public IActionResult GetSalesSumCrtl()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsExist(Expression<Func<Orders, bool>> criteria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IActionResult Update(Orders entity)
         {
             throw new NotImplementedException();
         }
