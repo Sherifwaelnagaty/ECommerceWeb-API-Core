@@ -11,7 +11,7 @@ namespace Core.Services
 {
     public interface IColorServices
     {
-        Task<IActionResult> AddColor(Color Color);
+        Task<IActionResult> AddColor(ColorDTO Color);
         IActionResult UpdateColor(Color color);
         IActionResult DeleteColor(int Id);
         IActionResult GetAllColors(int Page, int PageSize);

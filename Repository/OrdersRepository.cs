@@ -17,6 +17,11 @@ namespace Repository
 
         }
 
+        public IActionResult GetAllOrders(int Page, int PageSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public IActionResult GetAvgOrder()
         {
             throw new NotImplementedException();

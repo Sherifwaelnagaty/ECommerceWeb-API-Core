@@ -1,4 +1,5 @@
-﻿using Core.DTO;
+﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,13 @@ namespace Services
 {
     public interface IOrdersServices
     {
-
-        Task<IActionResult> AddOrder(OrdersDTO Order);
-        Task<IActionResult> UpdateOrder(int id, OrdersDTO OrdersDTO);
+        IActionResult GetAvgOrder();
+        IActionResult GetSalesSum();
+        IActionResult GetMinMaxOrder();
+        IActionResult GetAllOrders(int Page, int PageSize);
+        Task<IActionResult> GetOrderById(int Id);
+        Task<IActionResult> AddOrder(OrdersDTO orders);
+        Task<IActionResult> UpdateOrder(Orders orders);
         IActionResult DeleteOrder(int Id);
     }
 }

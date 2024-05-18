@@ -5,6 +5,7 @@ using Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,102 @@ namespace Services
             _mapper = mapper;
 
         }
-        public Task<IActionResult> AddOrder(OrdersDTO Order)
+        public async Task<IActionResult> AddOrder(OrdersDTO orders)
+        {
+            Orders order = _mapper.Map<Orders>(orders);
+            try
+            {
+                var result = await _unitOfWork.Orders.Add(order);
+                if (result is OkResult)
+                {
+                    return new OkObjectResult(order);
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Orders.Delete(order);
+                return new BadRequestObjectResult($"There is a problem during adding a new order \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
+        }
+
+        public IActionResult DeleteOrder(int Id)
+        {
+            try
+            {
+                Orders order = _unitOfWork.Orders.GetById(Id);
+                if (order == null)
+                {
+                    return new NotFoundObjectResult($"Id {Id} is not found");
+                }
+                _unitOfWork.Orders.Delete(order);
+                _unitOfWork.Complete();
+                return new OkObjectResult("Deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult($"There is a problem during adding a new order \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
+        }
+
+        public IActionResult GetAllOrders(int Page, int PageSize)
+        {
+            try
+            {
+
+                // get order
+                var gettingorderResult = _unitOfWork.Orders.GetAllOrders(Page, PageSize);
+                if (gettingorderResult is not OkObjectResult orderResult)
+                {
+                    return gettingorderResult;
+                }
+                List<OrdersDTO> orderInfoList = orderResult.Value as List<OrdersDTO>;
+
+                if (orderInfoList == null || orderInfoList.Count == 0)
+                {
+                    return new NotFoundObjectResult("There is no doctor");
+                }
+
+                var orderInfo = orderInfoList.Select(d => new
+                {
+                    d.orderItems,
+                    d.paymentMethod,
+                    d.shippingAddress,
+                }).ToList();
+
+                return new OkObjectResult(orderInfo);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting order info \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public IActionResult GetAvgOrder()
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult DeleteOrder(int Id)
+        public IActionResult GetMinMaxOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IActionResult> GetOrderById(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult GetSalesSum()
         {
             throw new NotImplementedException();
         }

@@ -22,7 +22,7 @@ namespace Services
             _mapper = mapper;
 
         }
-        public async Task<IActionResult> AddColor(Color Color)
+        public async Task<IActionResult> AddColor(ColorDTO Color)
         {
             Color colors = _mapper.Map<Color>(Color);
             try
