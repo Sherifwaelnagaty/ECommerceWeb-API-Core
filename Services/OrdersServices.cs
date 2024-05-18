@@ -80,7 +80,7 @@ namespace Services
 
                 if (orderInfoList == null || orderInfoList.Count == 0)
                 {
-                    return new NotFoundObjectResult("There is no doctor");
+                    return new NotFoundObjectResult("There is no order");
                 }
 
                 var orderInfo = orderInfoList.Select(d => new
