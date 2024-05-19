@@ -112,9 +112,26 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public Task<IActionResult> GetOrderById(int Id)
+        public IActionResult GetOrderById(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Orders order = _unitOfWork.Orders.GetById(Id);
+                if (order == null)
+                {
+                    return new NotFoundObjectResult($"Order with ID {Id} not found.");
+                }
+
+                return new OkObjectResult(order);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Orders info \n: {ex.Message}" +
+                $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public IActionResult GetSalesSum()

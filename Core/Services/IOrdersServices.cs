@@ -15,7 +15,7 @@ namespace Services
         IActionResult GetSalesSum();
         IActionResult GetMinMaxOrder();
         IActionResult GetAllOrders(int Page, int PageSize);
-        Task<IActionResult> GetOrderById(int Id);
+        IActionResult GetOrderById(int Id);
         Task<IActionResult> AddOrder(OrdersDTO orders);
         Task<IActionResult> UpdateOrder(Orders orders);
         IActionResult DeleteOrder(int Id);
