@@ -33,7 +33,6 @@ namespace Repository
                     Category = product.Category,
                     Colors = product.Colors,
                     Brand = product.Brand,
-                    Reviews = product.Reviews
                 });
                 if (criteria != null)
                 {
