@@ -4,6 +4,7 @@ using Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -55,17 +56,59 @@ namespace Repository
 
         public IActionResult GetAvgOrder()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var averageOrderTotal = _context.Orders.Average(order => order.TotalPrice);
+                return new OkObjectResult(averageOrderTotal);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
+
 
         public IActionResult GetMinMaxOrder()
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Find the order with the minimum total price
+                var minOrder = _context.Orders.OrderBy(order => order.TotalPrice).FirstOrDefault();
+
+                // Find the order with the maximum total price
+                var maxOrder = _context.Orders.OrderByDescending(order => order.TotalPrice).FirstOrDefault();
+
+                // Return both minOrderDTO and maxOrderDTO in the response
+                return new OkObjectResult(new { MinOrder = minOrder, MaxOrder = maxOrder });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
-        public IActionResult GetSalesSumCrtl()
+
+        public IActionResult GetSalesSum()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var totalSales = _context.Orders.Sum(order => order.TotalPrice);
+                return new OkObjectResult(totalSales);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
+
     }
 }
