@@ -5,9 +5,7 @@ using Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Services
@@ -16,12 +14,13 @@ namespace Services
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
+
         public OrdersServices(IUnitOfWork UnitOfWork, IMapper mapper)
         {
             _unitOfWork = UnitOfWork;
             _mapper = mapper;
-
         }
+
         public async Task<IActionResult> AddOrder(OrdersDTO orders)
         {
             Orders order = _mapper.Map<Orders>(orders);
@@ -69,8 +68,6 @@ namespace Services
         {
             try
             {
-
-                // get order
                 var gettingorderResult = _unitOfWork.Orders.GetAllOrders(Page, PageSize);
                 if (gettingorderResult is not OkObjectResult orderResult)
                 {
@@ -104,12 +101,45 @@ namespace Services
 
         public IActionResult GetAvgOrder()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var orders = _unitOfWork.Orders.GetAvgOrder();
+                if (orders == null)
+                {
+                    return new NotFoundObjectResult("No orders found");
+                }
+
+                return new OkObjectResult(orders);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while calculating the average order price \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public IActionResult GetMinMaxOrder()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var orders = _unitOfWork.Orders.GetMinMaxOrder();
+                if (orders == null)
+                {
+                    return new NotFoundObjectResult("No orders found");
+                }
+                return new OkObjectResult(orders);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while retrieving the min and max order prices \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public IActionResult GetOrderById(int Id)
@@ -136,7 +166,23 @@ namespace Services
 
         public IActionResult GetSalesSum()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var orders = _unitOfWork.Orders.GetSalesSum();
+                if (orders == null)
+                {
+                    return new NotFoundObjectResult("No orders found");
+                }
+                return new OkObjectResult(orders);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while calculating the total sales sum \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public async Task<IActionResult> UpdateOrder(Orders Orders)
@@ -155,9 +201,9 @@ namespace Services
             }
             catch (Exception ex)
             {
-
                 return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
             }
         }
     }
 }
+
