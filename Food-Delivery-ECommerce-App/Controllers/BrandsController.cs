@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -22,21 +23,13 @@ namespace Food_Delivery_ECommerce_App.Controllers
             return await _brandsServices.AddBrand(brand);
         }
         [HttpPut("{id}")]
-        public Task<IActionResult> UpdateBrand([FromForm] int id, [FromForm] Brand brand)
+        public async Task<IActionResult> UpdateBrand([FromForm] int id, [FromForm] Brand brand)
         {
             if (id == 0)
             {
                 ModelState.AddModelError("Id", "Id Is Required");
             }
-            if (!ModelState.IsValid)
-            {
-                return Task.FromResult<IActionResult>(BadRequest(ModelState));
-            };
-            if (!ModelState.IsValid)
-            {
-                return Task.FromResult<IActionResult>(BadRequest(ModelState));
-            };
-            return Task.FromResult(_brandsServices.UpdateBrand(brand));
+            return _brandsServices.UpdateBrand(brand);
         }
         [HttpDelete("{id}")]
         public IActionResult DeleteBrand([FromForm] int id)
